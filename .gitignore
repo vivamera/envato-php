@@ -2,3 +2,4 @@ vendor
 example
 composer.lock
 .DS_Store
+/.idea

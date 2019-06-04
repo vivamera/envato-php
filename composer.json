@@ -17,6 +17,12 @@
         {
             "name": "Nahid Bin Azhar",
             "email": "nahid.dns@gmail.com"
+        },
+        {
+            "name": "Christoph Raschke",
+            "email": "christoph.raschke@vivamera.com",
+            "homepage": "https://github.com/chriras",
+            "role": "Developer"
         }
     ],
 

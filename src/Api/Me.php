@@ -50,12 +50,54 @@ class Me extends AbstractApi
         return $this->get('/v3/market/buyer/list-purchases?'. $filter. 'page=' . $page);
     }
 
-    public function buyerDownload($itemId, $purchaseCode, $shortenUrl = false)
+    /**
+     * Buyer download
+     *
+     * @param bool $itemId
+     * @param bool $purchaseCode
+     * @param bool $shortenUrl
+     *
+     * @return mixed
+     * @throws \LogicException
+     */
+    public function buyerDownload($itemId = false, $purchaseCode = false, $shortenUrl = false)
     {
-        $shortenUrl = $shortenUrl?'true':'false';
-        return $this->get('/v3/market/buyer/download?item_id=' . $itemId. '&purchase_code=' . $purchaseCode . '&shorten_url=' . $shortenUrl);
+        if (false !== $itemId){
+            return $this->buyerDownloadByItemId($itemId,$shortenUrl);
+        }
+        if (false !== $purchaseCode){
+            return $this->buyerDownloadByPurchaseCode($purchaseCode,$shortenUrl);
+        }
+        throw new \LogicException('No ItemId or PurchaseCode given.');
     }
 
+    /**
+     * Buyer download by purchase code
+     *
+     * @param      $purchaseCode
+     * @param bool $shortenUrl
+     *
+     * @return mixed
+     */
+    public function buyerDownloadByPurchaseCode($purchaseCode, $shortenUrl = false)
+    {
+        $shortenUrl = $shortenUrl?'true':'false';
+        return $this->get('/v3/market/buyer/download?purchase_code=' . $purchaseCode . '&shorten_url=' . $shortenUrl);
+    }
+
+    /**
+     * Buyer download by item id
+     *
+     * @param      $itemId
+     * @param bool $shortenUrl
+     *
+     * @return mixed
+     */
+    public function buyerDownloadByItemId($itemId, $shortenUrl = false)
+    {
+        $shortenUrl = $shortenUrl?'true':'false';
+        return $this->get('/v3/market/buyer/download?item_id=' . $itemId. '&shorten_url=' . $shortenUrl);
+    }
 
     public function buyerPurchase($code)
     {
